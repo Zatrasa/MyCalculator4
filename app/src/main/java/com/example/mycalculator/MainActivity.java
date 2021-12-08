@@ -2,6 +2,7 @@ package com.example.mycalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,16 +10,26 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseClass {
     public Calculator calc;
+    private static final int REQUEST_CODE_SETTING_ACTIVITY = 99;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      //  setTheme(R.style.MyStylePurple);
+
         setContentView(R.layout.activity_main);
+
+
 
         calc = new Calculator();
 
+        InitAll();
+    }
+
+    private void InitAll() {
         TextView res_text = findViewById(R.id.res_text);
         Button button1 = findViewById(R.id.button_1);
         Button button2 = findViewById(R.id.button_2);
@@ -36,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
         Button button_div = findViewById(R.id.button_div);
         Button button_res = findViewById(R.id.button_res);
         Button button_point = findViewById(R.id.button_point);
-//        button1.setOnClickListener(v -> {
-//            calc.setCur_val("1");
-//            res_text.setText(calc.getCur_val());
-//        });
+        Button button_settings = findViewById(R.id.button_settings);
+        Button_Settings_init(button_settings);
         Button_init(button1, res_text, "1");
         Button_init(button2, res_text, "2");
         Button_init(button3, res_text, "3");
@@ -56,6 +65,23 @@ public class MainActivity extends AppCompatActivity {
         Button_action_init(button_div, res_text, '/');
         Button_result_init(button_res, res_text);
         Button_point_init(button_point, res_text);
+    }
+
+    private void Button_Settings_init(Button button_settings) {
+        button_settings.setOnClickListener(v -> {
+            Intent runSettings = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(runSettings,REQUEST_CODE_SETTING_ACTIVITY);
+            //startActivity(runSettings);
+            //this.recreate();
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != REQUEST_CODE_SETTING_ACTIVITY) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        recreate();
     }
 
     public void Button_point_init(Button but, TextView txt) {

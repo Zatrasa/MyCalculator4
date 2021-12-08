@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Мой калькулятор</string>
+    <string name="theme_name_light">Светлый стиль</string>
+    <string name="theme_name_dark">Пурпурный стиль</string>
+    <string name="bt_settings_txt">Настройки</string>
+    <string name="bt_exit">Закрыть</string>
+</resources>
